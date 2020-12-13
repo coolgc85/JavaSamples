@@ -55,7 +55,6 @@ public class Sample {
         highestSalayEmployees.stream().forEach(System.out::println);
 
         System.out.println("------------Salary increment------------");
-        // TODO: add a Object constructor
         final double SALARY_INCREMENT = 150.20;
         List<Employee> newSalaryEmployees = lowestSalaryEmployees
                 .stream().map(e -> new Employee(e.getId(), e.getName(),
