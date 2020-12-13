@@ -1,11 +1,15 @@
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 /**
- * Sample
+ * Java Functional Programming Samples
  */
 public class Sample {
 
@@ -64,6 +68,22 @@ public class Sample {
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
 
         employeeGroupByDepartment.entrySet().stream().map(Map.Entry::getValue).forEach(System.out::println);
+
+        /*
+                map Vs flatMap
+                1) map example, crating a stream based on a list.
+                2) Nested list in functional fashion
+                3) Using flatMap to collect al nested list in a single level list
+        */
+
+        List<String> myList = Stream.of("a", "b").map(String::toUpperCase).collect(Collectors.toList());
+        myList.stream().forEach(System.out::println);
+
+        List<List<String>> list = Arrays.asList(Arrays.asList("a"), Arrays.asList("b"));
+        list.stream().collect(Collectors.toList()).forEach(System.out::println);;
+
+        System.out.println(list.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+
 
     }
 
