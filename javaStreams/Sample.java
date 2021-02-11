@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -31,6 +32,7 @@ public class Sample {
                 new Employee(1, "Galo", new BigDecimal(1600), 1),
                 new Employee(3, "David", BigDecimal.valueOf(2029.40), 3),
                 new Employee(4, "Jessy", new BigDecimal(900), 2), new Employee(5, "Kamala", new BigDecimal(5000), 3),
+                new Employee(1, "Galo", BigDecimal.valueOf(244.40), 3),
                 new Employee(6, "Tisha", new BigDecimal(600), 1));
 
         // How many departments
@@ -68,6 +70,11 @@ public class Sample {
 
         employeeGroupByDepartment.entrySet().stream().map(Map.Entry::getValue).forEach(System.out::println);
 
+        Map<String, List<Employee>> employeeGroupByName = employees.stream()
+        .collect(Collectors.groupingBy(Employee::getName));
+
+        employeeGroupByName.entrySet().stream().map(Map.Entry::getValue).forEach(System.out::println);
+
         /*
                 map Vs flatMap
                 1) map example, crating a stream based on a list.
@@ -82,6 +89,14 @@ public class Sample {
         list.stream().collect(Collectors.toList()).forEach(System.out::println);;
 
         System.out.println(list.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+
+        String gfg1 = String.join("\t\t", "Four", "Five", "Six", "Seven"); 
+        System.out.println(gfg1);
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers1 = IntStream.range(1, 10).boxed().collect(Collectors.toList());
+        String str =  numbers.stream().map(i->i.toString()).collect(Collectors.joining("\t"));
+        System.out.println(str);
 
 
     }

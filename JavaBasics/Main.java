@@ -2,12 +2,16 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+
 
 
 
@@ -151,6 +155,59 @@ public class Main {
 
     }
 
+    public static String getFizzBuzzValue(Integer n){
+        StringBuilder s = new StringBuilder();
+        if(n % 3 == 0){
+            s.append("Fizz");            
+        }
+        if (n%5 == 0){
+            s.append("Buzz");
+        }
+        if(s.length()<1){
+            s.append(n);
+        }
+        return s.toString();
+    }
+
+    public static void fizzBuzz(int n) {
+        if(n>1){
+           IntStream.rangeClosed(1, n).boxed().map(num -> getFizzBuzzValue(num)).forEach(System.out::println);
+        }
+    
+        }
+
+        public static int segment(int x, List<Integer> space) {
+            int newIndex = 0;
+            List<Integer> tmp = null;
+            List<Integer> result = new ArrayList<Integer>();
+            long startTime = System.nanoTime();
+
+                if(x != space.size()){
+                    while(newIndex+x < space.size()){
+                        tmp = new ArrayList<Integer>();
+                        for(int i=newIndex;i<newIndex+x;i++){
+                            tmp.add(space.get(i));
+                        }
+                        result.add(tmp.stream().min(Comparator.naturalOrder()).get());
+                        newIndex++;  
+                    }   
+                } else{
+                    result.add(space.stream().min(Comparator.naturalOrder()).get());
+                }                                 
+
+            if(result != null && !result.isEmpty()){
+                long stopTime = System.nanoTime();
+                System.out.println((stopTime-startTime));
+                System.out.println("ms "+(stopTime-startTime)/ 1000000);
+                return result.stream().max(Comparator.naturalOrder()).get();
+            }                
+            else
+                return 0;
+           
+        }
+
+      
+
     public static void main(String[] args) {
         Integer result = sum(10);
         // System.out.println(result);
@@ -160,10 +217,10 @@ public class Main {
 
         // System.out.println(search(22, list2));
 
-         System.out.println(maximum(list));
+         //System.out.println(maximum(list));
 
         int[] arr = { 3, 5, 6 };
-        int sumArray = simpleArraySum(arr);
+       // int sumArray = simpleArraySum(arr);
         // System.out.println(sumArray);
 
         // List<Integer> a = Arrays.asList(17,28,30);
@@ -179,8 +236,22 @@ public class Main {
         int[] ar = { 10, 20, 20, 10, 10, 30, 50, 10, 20 };
         // System.out.println(sockMerchant(ar.length, ar));
 
-        System.out.println(countingValleys(12, "DDUUDDUDUUUD"));
+        //System.out.println(countingValleys(12, "DDUUDDUDUUUD"));
+       // fizzBuzz(15);
 
-    }
+       //List<Integer> space = Arrays.asList(2, 5, 4, 1, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 1,2, 5, 4, 6, 8,2, 5, 4, 1, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,23,8,6,2, 5, 4, 6, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,4,6,2,1,2, 5, 4, 6, 8,2, 5, 4, 6, 8,2, 5, 4, 6, 8,7,2, 5, 4, 6, 8,52, 5, 4, 6, 8,8,2, 5, 4, 6, 8,9,2, 5, 4, 6, 8,4,1,7,5,12,34,7,12,5,7,9,4,2,3,4);
+       //List<Integer> space = Arrays.asList(1,2,3,1,2);
+       List<Integer> space = new ArrayList<Integer>();
+       
+       /*  for(int i =0; i<55500; i++){
+        int randomInt = (int)(1000.0 * Math.random());
+        System.out.println("i : "+i +" - "+ (randomInt+1) );
+        space.add(randomInt); */
+   // } 
+       
+      // System.out.println("Min Value "+segment(5,space));
+     
+
+       }
 
 }
