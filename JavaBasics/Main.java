@@ -1,4 +1,5 @@
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -206,6 +207,96 @@ public class Main {
            
         }
 
+        static void extraLongFactorials(int n) {
+            int index = 1;
+            BigInteger total = BigInteger.valueOf(n);
+            BigInteger dif = BigInteger.ZERO;            
+            if(n != 0 && n != 1){
+                do {
+                    dif = BigInteger.valueOf(n - index);                                
+                    total = total.multiply(dif);
+                    index++;
+                } while (index<n);
+            } 
+            else{
+                total = BigInteger.ONE;
+            } 
+            
+System.out.println(total);
+
+        }
+
+        static boolean isMatrixValid(int length, double ceil, double floor){
+            return (ceil * floor >= length);
+        }
+
+        static String getEncodedResponse(String[][] encodedArray){
+            StringBuilder result = null;
+            int columnIndex = 0;
+
+            System.out.println(encodedArray.length);
+            if(encodedArray != null && encodedArray.length > 0){
+                result = new StringBuilder();
+                do{
+                    for(int i=0;i<encodedArray.length;i++){
+                        if(encodedArray[i][columnIndex] != null)
+                            result.append(encodedArray[i][columnIndex]);
+                    }
+                    result.append(" ");
+                    columnIndex++;
+                }while(columnIndex < encodedArray[0].length);
+            }            
+            return (result != null?result.toString():null);
+        }
+
+        static String charAtWithStringLenghtValidation(int index,String normalizedString){
+            String result = null;
+
+            if(index < normalizedString.length())
+               result = String.valueOf(normalizedString.charAt(index));
+            return result;
+        }
+
+        static String encryption(String s) {
+           
+            String normalizedString = s.replaceAll(" ","");
+            int length = normalizedString.replaceAll(" ","").length();
+            double sqrt = Math.sqrt(length);
+            int ceil = (int) Math.ceil(sqrt);
+            int floor = (int) Math.floor(sqrt);
+
+            String[][] encodedArray = null;
+
+            while(!isMatrixValid(length,ceil, floor)){
+                if(ceil < floor)
+                    ceil++;
+                else
+                    floor++;
+            }
+
+            int rows, columns = 0;
+            int rowIndex = 0;
+            encodedArray = new String[rows = floor][columns = ceil];
+            
+            do{
+                for (int i=0;i<columns;i++) {
+                    encodedArray[rowIndex][i] = charAtWithStringLenghtValidation(i,normalizedString);                    
+                   
+                }
+                if(normalizedString.length() >= columns){
+                    normalizedString = normalizedString.substring(columns);                   
+                }
+                else
+                    break;
+                    
+            rowIndex++;
+            } while(rowIndex < rows);
+                
+           
+            return getEncodedResponse(encodedArray);
+
+        }
+
       
 
     public static void main(String[] args) {
@@ -250,7 +341,15 @@ public class Main {
    // } 
        
       // System.out.println("Min Value "+segment(5,space));
+
+     // extraLongFactorials(10);
      
+     String statement = null;
+     //statement = "have a nice day";
+     statement = "feedthedog ";
+
+     String encodedResult = encryption(statement);
+     System.out.println(encodedResult);
 
        }
 
